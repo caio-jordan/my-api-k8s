@@ -31,7 +31,7 @@ Abra o PowerShell e ative o Docker dentro da VM do Minikube:
 
 Agora, crie a imagem da sua API:
 
-    docker build -t minhaapi:k8s .
+    docker build -t my-api:k8s .
 
 ☸️ Etapa 2 – Iniciar o Minikube com a porta liberada
 ----------------------------------------------------
@@ -47,20 +47,20 @@ Agora, crie a imagem da sua API:
     apiVersion: apps/v1
     kind: Deployment
     metadata:
-      name: minhaapi
+      name: my-api
     spec:
       replicas: 2
       selector:
         matchLabels:
-          app: minhaapi
+          app: my-api
       template:
         metadata:
           labels:
-            app: minhaapi
+            app: my-api
         spec:
           containers:
-          - name: minhaapi
-            image: minhaapi:k8s
+          - name: my-api
+            image: my-api:k8s
             imagePullPolicy: Never
             ports:
             - containerPort: 80
@@ -74,7 +74,7 @@ Agora, crie a imagem da sua API:
     spec:
       type: NodePort
       selector:
-        app: minhaapi
+        app: my-api
       ports:
         - protocol: TCP
           port: 80
